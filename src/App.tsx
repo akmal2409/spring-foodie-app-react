@@ -1,12 +1,12 @@
+import { Route, Routes } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
-import rootStyles from './global-styles/root-styles';
+import LandingLayout from './components/layout/LandingLayout';
 
 const App = () => {
   const GlobalStyle = createGlobalStyle`
-    ${rootStyles}
-
     * {
       font-family: var(--theme-font-family);
+      color: var(--theme-text-primary);
     }
 
     html {
@@ -20,6 +20,10 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
+      <Routes>
+        <Route path="/" element={<LandingLayout />} />
+
+      </Routes>
     </>
   );
 }
