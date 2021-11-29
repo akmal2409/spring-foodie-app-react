@@ -20,15 +20,18 @@ const RoundedButton = styled.button<StyleProps>`
   width: auto;
   padding: 12px 12px;
   white-space: nowrap;
-  height: 36px;
+  height: 40px;
   line-height: 16px;
   align-items: center;
+  justify-content: center;
   display: flex;
 
-  @media screen and(min-width: 768px) {
+  @media (min-width: 768px) {
+    font-size: 1.2rem;
     min-height: 56px;
     padding: 12px 16px;
     font-weight: 500;
+    min-width: 90px;
   }
 `;
 

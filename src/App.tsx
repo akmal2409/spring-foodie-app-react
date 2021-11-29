@@ -22,7 +22,6 @@ const App = () => {
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<LandingLayout />} />
-
       </Routes>
     </>
   );

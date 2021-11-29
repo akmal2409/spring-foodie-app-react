@@ -1,9 +1,11 @@
 :root {
   --theme-background-primary: #ffffff;
   --theme-background-secondary: #eeeeee;
+  --theme-background-grey: #f6f6f6;
   --theme-background-dark: #000000;
   --theme-background-beige: #fff2d9;
   --theme-text-primary: #000000;
+  --theme-text-secondary: rgb(84, 84, 84);
   --theme-font-family: 'Uber Move Text', sans-serif;
   --theme-font-size: 14px;
 }

@@ -26,7 +26,6 @@ const HeroImageContainer = () => {
 const LandingHero = () => {
   return <>
     <HeroImageContainer />
-
   </>;
 }
 
