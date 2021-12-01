@@ -16,17 +16,11 @@ const CompletionsContainer = styled.ul`
   margin: 0;
   padding: 0;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  animation: fadein 150ms forwards;
 
-  li {
-    padding: 16px;
-    height: auto;
-    cursor: pointer;
-    outline: none;
-    transition: background 100ms ease 0s;
-  }
 
-  li:hover {
-    background: #f6f6f6;
+  @keyframes fadein {
+    from {opacity: 0; transform: translateY(-1rem)} to { opacity: 1; transform: translateY(0)}
   }
 `;
 

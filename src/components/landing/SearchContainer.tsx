@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { SearchSuggestion } from '../search-bar/Autocomplete';
+import Option from '../search-bar/Option';
 import SearchBar from '../search-bar/SearchBar';
+import Dropdown from '../ui/dropdowns/Dropdown';
+import ClockIcon from '../ui/svg/ClockIcon';
 import MapPinIcon from '../ui/svg/MapPinIcon';
 
 const StyledSection = styled.section`
@@ -31,8 +34,6 @@ const SearchSection = () => {
       { id: 'ndn55', label: 'Hengelo Stationsplein 23', sublabel: 'Netherlands' },
       { id: 'hgdfqwq', label: 'Hengelo Stationsplein 23', sublabel: 'Netherlands' },
       { id: '453jkjm', label: 'Hengelo Stationsplein 23', sublabel: 'Netherlands' },
-      { id: 'ukt78iu', label: 'Hengelo Stationsplein 23', sublabel: 'Netherlands' },
-      { id: 'dhdgf65456', label: 'Hengelo Stationsplein 23', sublabel: 'Netherlands' },
     ]);
     setSearchValue(value);
   }
@@ -41,16 +42,26 @@ const SearchSection = () => {
 
   }
 
+  const onClearInputHanlder = () => {
+    setSearchValue('');
+  }
+
   return <StyledSection>
+    <h1 style={{ marginBottom: '24px' }}>Order food to your door</h1>
     <SearchBar
       placeholder='Enter delivery address'
       value={searchValue}
       onChange={onSearchInputHandler}
       onSelect={onSelectOptionHandler}
       icon={<MapPinIcon />}
+      onClear={onClearInputHanlder}
       autocomplete
       optionIcon={<MapPinIcon />}
       suggestions={suggestions} />
+    <Dropdown value={'Deliver Now'} icon={<ClockIcon />}>
+      <Option value='Deliver Now' onClick={() => { }} label='Deliver Now' optionIcon={<ClockIcon />} />
+      <Option value='Schedule for later' onClick={() => { }} label='Schedule for later' optionIcon={<ClockIcon />} />
+    </Dropdown>
   </StyledSection>;
 }
 

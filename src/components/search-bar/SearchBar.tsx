@@ -1,9 +1,11 @@
 import { ReactNode, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { TextButton } from '../ui/buttons/Buttons';
+import Spacer from '../ui/Spacer';
 import Autocomplete, { SearchSuggestion } from './Autocomplete';
 
 const SearchBarContainer = styled.div`
-  z-index: 0;
+  z-index: 1;
   position: relative;
   width: 100%;
   margin: 0;
@@ -13,7 +15,7 @@ const SearchBarContainer = styled.div`
   & .search-bar_icon {
     position: absolute;
     top: 25%;
-    left: 10px;
+    left: 15px;
     width: 24px;
     height: 24px;
     bottom: 0;
@@ -26,13 +28,13 @@ const SearchBarContainer = styled.div`
   }
 `;
 
-const StyledSearchBar = styled.input`
+const StyledSearchBar = styled.input<{ background?: string }>`
   width: 100%;
   height: 56px;
-  padding: 0 0 0.4rem 3rem;
-  font-size: 1.1rem;
+  padding: 0.2rem 0 0.4rem 3.6rem;
   outline: none;
   border: none;
+  background: ${props => props.background || 'var(--theme-background-primary)'};
 
   &.border-bottom {
     box-shadow: rgb(0, 0, 0) 0 -2px 0 inset;
@@ -40,15 +42,24 @@ const StyledSearchBar = styled.input`
   }
 `;
 
+const ClearButton = styled(TextButton)`
+  position: absolute;
+  right: 15px;
+  top: 30%;
+`;
+
+
 const SearchBar = (props: Props) => {
   const [classes, setClasses] = useState('');
   const [showAutcomplete, setShowAutocomplete] = useState(false);
+
+  const showClearButton = props.value != null && props.value.trim().length > 0;
 
   useEffect(() => {
     if (props.suggestions && props.suggestions.length > 0) {
       setShowAutocomplete(true);
     }
-  }, [props.suggestions])
+  }, [props.suggestions]);
 
   const inputFocusHandler = () => {
     setClasses('border-bottom');
@@ -67,8 +78,10 @@ const SearchBar = (props: Props) => {
   }
 
   return <SearchBarContainer>
-    {props.icon && <span className='search-bar_icon'>{props.icon}</span>}
+    <Spacer spacer='4' />
+    {props.icon && <span className="search-bar_icon">{props.icon}</span>}
     <StyledSearchBar
+      background={props.background}
       className={`${classes}`}
       onFocus={inputFocusHandler}
       onBlur={inputBlurHandler}
@@ -79,6 +92,7 @@ const SearchBar = (props: Props) => {
       <Autocomplete onClick={onOptionClickHandler}
         optionIcon={props.optionIcon}
         suggestions={props.suggestions} />}
+    {showClearButton && <ClearButton onClick={props.onClear}>Clear</ClearButton>}
   </SearchBarContainer>;
 }
 
@@ -90,7 +104,9 @@ type Props = {
   autocomplete?: boolean;
   onChange: (value: string) => void;
   onSelect?: (value: any) => void;
+  onClear: () => void;
   value: string;
+  background?: string;
 };
 
 export default SearchBar;

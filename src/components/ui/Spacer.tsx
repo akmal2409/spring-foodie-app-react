@@ -5,7 +5,7 @@ const Spacer = styled.div<StyleProps>`
 `
 
 type StyleProps = {
-  spacer: '128' | '32' | '16';
+  spacer: string;
 };
 
 

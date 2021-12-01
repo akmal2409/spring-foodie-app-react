@@ -5,6 +5,14 @@ const StyledOption = styled.li`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  padding: 16px;
+  height: auto;
+  cursor: pointer;
+  outline: none;
+  transition: background 100ms ease 0s;
+  &:hover {
+    background: #f6f6f6;
+  }
 
   & .option_icon {
     border-radius: 50%;
@@ -31,9 +39,9 @@ const StyledOption = styled.li`
 
 const Option = ({ onClick, value, label, sublabel, optionIcon }: Props) => {
   return <StyledOption onClick={() => onClick(value)}>
-    <div className='option_icon'>
+    {optionIcon && <div className='option_icon'>
       {optionIcon}
-    </div>
+    </div>}
     <div className='option-wrapper'>
       <div className='option_label'>{label}</div>
       {sublabel && <div className='option_sublabel'>{sublabel}</div>}

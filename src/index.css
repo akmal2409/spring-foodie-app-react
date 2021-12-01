@@ -9,9 +9,25 @@ body {
 
 html {
   -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0,0,0,0)
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-html, body, #root, #wrapper {
+html,
+body,
+#root,
+#wrapper {
   height: 100%;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 44px;
+}
+
+@media screen and(min-width: 768px) {
+  h1 {
+    font-size: 56px;
+    font-weight: 700;
+  }
 }

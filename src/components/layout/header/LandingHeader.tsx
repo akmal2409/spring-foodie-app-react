@@ -1,17 +1,18 @@
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import SearchBar from '../../search-bar/SearchBar';
 import Pusher from '../../ui/Pusher';
 import RoundedButton from '../../ui/RoundedButton';
 
 import Spacer from '../../ui/Spacer';
+import MapPinIcon from '../../ui/svg/MapPinIcon';
 import Logo from '../Logo';
 import BurgerButton from './BurgerButton';
 import StyledHeader from './StyledHeader';
 
 const SearchBarContainer = styled.div`
   width: 100%;
-  display: none;
 
   @media (min-width: 768px) {
     max-width: 700px;
@@ -27,13 +28,26 @@ const LandingHeader = (props: Props) => {
     boxShadow = 'none';
   }
 
+
   return <StyledHeader background={background}
     style={{ boxShadow: boxShadow }}>
     <BurgerButton />
     <Spacer spacer='32' />
     <Link to="/"><Logo /></Link>
     <Spacer spacer='128' />
-    <SearchBarContainer></SearchBarContainer>
+    <SearchBarContainer>
+      {props.scrolled && <SearchBar
+        placeholder='Enter delivery address'
+        value={''}
+        onChange={() => { }}
+        onSelect={() => { }}
+        icon={<MapPinIcon />}
+        onClear={() => { }}
+        autocomplete
+        background="var(--theme-background-grey)"
+        optionIcon={<MapPinIcon />}
+        suggestions={[]} />}
+    </SearchBarContainer>
     <Pusher />
     <RoundedButton background="secondary">Sign in</RoundedButton>
   </StyledHeader>;
