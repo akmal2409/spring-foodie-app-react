@@ -56,6 +56,7 @@ const Dropdown = (props: Props) => {
   }
 
   return <DropdownContainer
+    className={props.classes}
     onClick={toggle}
     ref={containerRef}
     height={props.height}
@@ -76,6 +77,7 @@ type Props = {
   background?: string;
   icon?: ReactNode;
   value?: any;
+  classes?: string;
 };
 
 type StylePropsContainer = {

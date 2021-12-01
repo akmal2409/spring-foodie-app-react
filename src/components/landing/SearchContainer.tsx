@@ -59,7 +59,7 @@ const SearchSection = () => {
       autocomplete
       optionIcon={<MapPinIcon />}
       suggestions={suggestions} />
-    <Dropdown value={'Deliver Now'} icon={<ClockIcon />}>
+    <Dropdown value={'Deliver Now'} icon={<ClockIcon />} classes='mt-4'>
       <Option value='Deliver Now' onClick={() => { }} label='Deliver Now' optionIcon={<ClockIcon />} />
       <Option value='Schedule for later' onClick={() => { }} label='Schedule for later' optionIcon={<CalendarIcon />} />
     </Dropdown>
