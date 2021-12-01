@@ -10,7 +10,7 @@ const StyledOption = styled.li`
   cursor: pointer;
   outline: none;
   transition: background 100ms ease 0s;
-  &:hover {
+  &:hover, &:focus {
     background: #f6f6f6;
   }
 

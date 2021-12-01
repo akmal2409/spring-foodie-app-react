@@ -4,6 +4,7 @@ import { SearchSuggestion } from '../search-bar/Autocomplete';
 import Option from '../search-bar/Option';
 import SearchBar from '../search-bar/SearchBar';
 import Dropdown from '../ui/dropdowns/Dropdown';
+import CalendarIcon from '../ui/svg/CalendarIcon';
 import ClockIcon from '../ui/svg/ClockIcon';
 import MapPinIcon from '../ui/svg/MapPinIcon';
 
@@ -60,7 +61,7 @@ const SearchSection = () => {
       suggestions={suggestions} />
     <Dropdown value={'Deliver Now'} icon={<ClockIcon />}>
       <Option value='Deliver Now' onClick={() => { }} label='Deliver Now' optionIcon={<ClockIcon />} />
-      <Option value='Schedule for later' onClick={() => { }} label='Schedule for later' optionIcon={<ClockIcon />} />
+      <Option value='Schedule for later' onClick={() => { }} label='Schedule for later' optionIcon={<CalendarIcon />} />
     </Dropdown>
   </StyledSection>;
 }
