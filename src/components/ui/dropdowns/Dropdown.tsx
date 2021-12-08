@@ -14,6 +14,9 @@ export const DropdownContainer = styled.div<StylePropsContainer>`
   padding: 8px 0;
   margin: 0;
   cursor: pointer;
+  width: 100%;
+
+  ${props => props.flexGrow ? `flex-grow: ${props.flexGrow};` : ''}
 `;
 
 const OptionContainer = styled.ul`
@@ -57,6 +60,7 @@ const Dropdown = (props: Props) => {
   return <DropdownContainer
     className={props.classes}
     onClick={toggle}
+    flexGrow={props.flexGrow}
     ref={containerRef}
     height={props.height}
     background={props.background}>
@@ -79,11 +83,13 @@ type Props = {
   classes?: string;
   minWidth?: string;
   maxWidth?: string;
+  flexGrow?: number;
 };
 
 type StylePropsContainer = {
   height?: string;
   background?: string;
+  flexGrow?: number;
 }
 
 export default Dropdown;

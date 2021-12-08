@@ -22,7 +22,8 @@ const StyledSection = styled.section`
 
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 1rem;
+  column-gap: 0.3rem;
 
   h1 {
       max-width: 75%;
@@ -92,11 +93,11 @@ const SearchSection = () => {
         autocomplete
         optionIcon={<MapPinIcon />}
         suggestions={suggestions} />
-      <Dropdown value={'Deliver Now'} icon={<ClockIcon />} classes='mt-4'>
+      <Dropdown flexGrow={2} value={'Deliver Now'} icon={<ClockIcon />} classes='mt-4'>
         <Option value='Deliver Now' onClick={() => { }} label='Deliver Now' optionIcon={<ClockIcon />} />
         <Option value='Schedule for later' onClick={() => { }} label='Schedule for later' optionIcon={<CalendarIcon />} />
       </Dropdown>
-      <PrimaryButton height='56px'>Find Food</PrimaryButton>
+      <PrimaryButton style={{ flexGrow: 1 }} height='56px'>Find Food</PrimaryButton>
     </SearchContainer>
   </StyledSection>;
 }

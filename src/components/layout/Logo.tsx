@@ -4,7 +4,11 @@ import logoTransparentDark from '../../assets/logo-transparent-dark.svg';
 const StyledLogo = styled.img`
   display: block;
   height: 24px;
-  width: auto;
+  width: 300px;
+
+  @media (min-width: 768px) {
+    width: auto;
+  }
 `;
 
 const Logo = () => {
