@@ -5,8 +5,7 @@ import Spacer from '../Spacer';
 import { ChevronDown } from '../svg/ChevronDown';
 
 
-const DropdownContainer = styled.div<StylePropsContainer>`
-  width: 100%;
+export const DropdownContainer = styled.div<StylePropsContainer>`
   position: relative;
   height: ${props => props.height || '56px'};
   background: ${props => props.background || 'var(--theme-background-primary)'};
@@ -78,6 +77,8 @@ type Props = {
   icon?: ReactNode;
   value?: any;
   classes?: string;
+  minWidth?: string;
+  maxWidth?: string;
 };
 
 type StylePropsContainer = {

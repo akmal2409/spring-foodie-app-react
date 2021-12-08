@@ -4,7 +4,11 @@ import { TextButton } from '../ui/buttons/Buttons';
 import Spacer from '../ui/Spacer';
 import Autocomplete, { SearchSuggestion } from './Autocomplete';
 
-const SearchBarContainer = styled.div`
+type ContainerStyleProps = {
+  minWidth?: string;
+}
+
+const SearchBarContainer = styled.div<ContainerStyleProps>`
   z-index: 1;
   position: relative;
   width: 100%;
@@ -25,6 +29,10 @@ const SearchBarContainer = styled.div`
       width: 24px;
       height: 24px;
     }
+  }
+
+  @media (min-width: 768px) {
+    min-width: ${props => props.minWidth || '500px'};
   }
 `;
 
@@ -77,7 +85,7 @@ const SearchBar = (props: Props) => {
     }
   }
 
-  return <SearchBarContainer>
+  return <SearchBarContainer minWidth={props.minWidth}>
     <Spacer spacer='4' />
     {props.icon && <span className="search-bar_icon">{props.icon}</span>}
     <StyledSearchBar
@@ -107,6 +115,8 @@ type Props = {
   onClear: () => void;
   value: string;
   background?: string;
+  minWidth?: string;
+  maxWidth?: string;
 };
 
 export default SearchBar;
