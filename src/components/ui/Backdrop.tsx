@@ -1,16 +1,16 @@
-import styled from 'styled-components';
-
+import styled from 'styled-components'
 
 const Backdrop = styled.div<StyleProps>`
   position: fixed;
   width: 100%;
   height: 100%;
-  z-index: ${props => props.zIndex || '11'};
-  background-color: rgba(0,0,0,0.5);
-`;
+  z-index: ${props => props.zIndex || 'var(--theme-backdrop-zIndex)'};
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: background-color 0.45s ease-in-out;
+`
 
 type StyleProps = {
-  zIndex?: number;
+  zIndex?: number
 }
 
-export default Backdrop;
+export default Backdrop
