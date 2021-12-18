@@ -25,6 +25,7 @@ const RoundedButton = styled.button<StyleProps>`
   align-items: center;
   justify-content: center;
   display: flex;
+  z-index: 0;
 
   @media (min-width: 768px) {
     font-size: 1.2rem;
