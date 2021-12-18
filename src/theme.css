@@ -12,6 +12,9 @@
   --theme-font-size: 14px;
 
   --theme-hover-dark: #333333;
+
+  --theme-backdrop-zIndex: 11;
+  --theme-sidebar-zIndex: 12;
 }
 
 html.dark {
