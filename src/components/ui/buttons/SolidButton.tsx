@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const SolidButton = styled.button<StyleProps>`
   padding: 12px 16px;
@@ -7,7 +7,7 @@ export const SolidButton = styled.button<StyleProps>`
   margin: 0;
   outline: none;
   border: none;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 1.1rem;
   cursor: pointer;
   letter-spacing: normal;
@@ -16,17 +16,18 @@ export const SolidButton = styled.button<StyleProps>`
   border-image: initial;
   border-width: 0;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     background: var(--theme-hover-dark);
   }
-`;
+`
 
 export const PrimaryButton = styled(SolidButton)`
   background: var(--theme-background-dark);
   color: var(--theme-text-light);
-`;
+`
 
 type StyleProps = {
-  width?: string;
-  height?: string;
-};
+  width?: string
+  height?: string
+}

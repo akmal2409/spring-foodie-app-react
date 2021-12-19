@@ -1,14 +1,14 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-const convertToBackgroundVar = (backgroundType: BackgroundType): string => {
+const convertToBackgroundVar = (backgroundType?: BackgroundType): string => {
   switch (backgroundType) {
     case 'primary':
-      return '--theme-background-primary';
+      return '--theme-background-primary'
     case 'dark':
-      return '--theme-background-dark';
+      return '--theme-background-dark'
     case 'secondary':
     default:
-      return '--theme-background-secondary';
+      return '--theme-background-secondary'
   }
 }
 
@@ -26,6 +26,7 @@ const RoundedButton = styled.button<StyleProps>`
   justify-content: center;
   display: flex;
   z-index: 0;
+  cursor: pointer;
 
   @media (min-width: 768px) {
     font-size: 1.2rem;
@@ -34,12 +35,11 @@ const RoundedButton = styled.button<StyleProps>`
     font-weight: 500;
     min-width: 90px;
   }
-`;
+`
 
 type StyleProps = {
-  background: BackgroundType;
-};
+  background?: BackgroundType
+}
 
-
-type BackgroundType = 'primary' | 'secondary' | 'dark';
-export default RoundedButton;
+type BackgroundType = 'primary' | 'secondary' | 'dark'
+export default RoundedButton

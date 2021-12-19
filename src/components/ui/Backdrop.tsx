@@ -6,7 +6,8 @@ const Backdrop = styled.div<StyleProps>`
   height: 100%;
   z-index: ${props => props.zIndex || 'var(--theme-backdrop-zIndex)'};
   background-color: rgba(0, 0, 0, 0.5);
-  transition: background-color 0.45s ease-in-out;
+  transition: all 0.4s ease-in;
+  -webkit-transition: all 0.4s ease-in;
 `
 
 type StyleProps = {
