@@ -1,13 +1,17 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-import { SearchSuggestion } from '../search-bar/Autocomplete';
-import Option from '../search-bar/Option';
-import SearchBar from '../search-bar/SearchBar';
-import { PrimaryButton } from '../ui/buttons/SolidButton';
-import Dropdown, { DropdownContainer } from '../ui/dropdowns/Dropdown';
-import CalendarIcon from '../ui/svg/CalendarIcon';
-import ClockIcon from '../ui/svg/ClockIcon';
-import MapPinIcon from '../ui/svg/MapPinIcon';
+import {skipToken} from '@reduxjs/toolkit/dist/query'
+import {useEffect, useState} from 'react'
+import {useNavigate} from 'react-router-dom'
+import styled from 'styled-components'
+import useDebounce from '../../hooks/useDebounce'
+import {useGetPlacesSuggestionQuery} from '../../services/api.slice'
+import {SearchSuggestion} from '../search-bar/Autocomplete'
+import Option from '../search-bar/Option'
+import SearchBar from '../search-bar/SearchBar'
+import {PrimaryButton} from '../ui/buttons/SolidButton'
+import Dropdown, {DropdownContainer} from '../ui/dropdowns/Dropdown'
+import CalendarIcon from '../ui/svg/CalendarIcon'
+import ClockIcon from '../ui/svg/ClockIcon'
+import MapPinIcon from '../ui/svg/MapPinIcon'
 
 const StyledSection = styled.section`
   position: absolute;
@@ -26,16 +30,16 @@ const StyledSection = styled.section`
   column-gap: 0.3rem;
 
   h1 {
-      max-width: 75%;
-      line-height: 64px;
-      font-size: 52px;
-      display: block;
+    max-width: 75%;
+    line-height: 64px;
+    font-size: 52px;
+    display: block;
   }
 
   @media (min-width: 768px) {
     max-width: 1920px;
   }
-`;
+`
 
 const SearchContainer = styled.div`
   display: flex;
@@ -48,6 +52,7 @@ const SearchContainer = styled.div`
   @media (min-width: 768px) {
     flex-direction: row;
     align-items: center;
+    justify-content: flex-start;
 
     ${DropdownContainer},
     ${PrimaryButton} {
@@ -55,51 +60,75 @@ const SearchContainer = styled.div`
       margin-top: 0;
     }
   }
-`;
+`
 
 const SearchSection = () => {
-  const [suggestions, setSuggestions] = useState<SearchSuggestion[]>([]);
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState('')
+  const [suggestions, setSuggestions] = useState<SearchSuggestion[]>([])
+  const debounce = useDebounce()
+  const navigate = useNavigate()
 
+  const {
+    data: autocompleteData,
+    error,
+    isLoading
+  } = useGetPlacesSuggestionQuery(searchValue && searchValue.length > 1 ? searchValue : skipToken)
+
+  useEffect(() => {
+    if (autocompleteData?.results) {
+      const mappedSuggestions = autocompleteData.results.map(res => ({
+        id: res.id,
+        label: res.address.freeformAddress,
+        subLabel: res.address.country,
+        value: res
+      }))
+
+      setSuggestions(mappedSuggestions)
+    }
+  }, [autocompleteData])
   const onSearchInputHandler = (value: string) => {
-    setSuggestions([
-      { id: 'fasd', label: 'Hengelo Stationsplein 23', sublabel: 'Netherlands' },
-      { id: '543ggds', label: 'Hengelo Stationsplein 23', sublabel: 'Netherlands' },
-      { id: 'ndn55', label: 'Hengelo Stationsplein 23', sublabel: 'Netherlands' },
-      { id: 'hgdfqwq', label: 'Hengelo Stationsplein 23', sublabel: 'Netherlands' },
-      { id: '453jkjm', label: 'Hengelo Stationsplein 23', sublabel: 'Netherlands' },
-    ]);
-    setSearchValue(value);
+    debounce(() => setSearchValue(value), 3000)
   }
 
   const onSelectOptionHandler = (value: any) => {
-
+    localStorage.setItem('deliveryAddress', JSON.stringify(value))
+    navigate(`/feed`)
   }
 
   const onClearInputHanlder = () => {
-    setSearchValue('');
+    setSearchValue('')
   }
 
-  return <StyledSection>
-    <h1 style={{ marginBottom: '24px' }}>Order food to your door</h1>
-    <SearchContainer>
-      <SearchBar
-        placeholder='Enter delivery address'
-        value={searchValue}
-        onChange={onSearchInputHandler}
-        onSelect={onSelectOptionHandler}
-        icon={<MapPinIcon />}
-        onClear={onClearInputHanlder}
-        autocomplete
-        optionIcon={<MapPinIcon />}
-        suggestions={suggestions} />
-      <Dropdown flexGrow={2} value={'Deliver Now'} icon={<ClockIcon />} classes='mt-4'>
-        <Option value='Deliver Now' onClick={() => { }} label='Deliver Now' optionIcon={<ClockIcon />} />
-        <Option value='Schedule for later' onClick={() => { }} label='Schedule for later' optionIcon={<CalendarIcon />} />
-      </Dropdown>
-      <PrimaryButton style={{ flexGrow: 1 }} height='56px'>Find Food</PrimaryButton>
-    </SearchContainer>
-  </StyledSection>;
+  return (
+    <StyledSection>
+      <h1 style={{marginBottom: '24px'}}>Order food to your door</h1>
+      <SearchContainer>
+        <SearchBar
+          placeholder="Enter delivery address"
+          onChange={onSearchInputHandler}
+          onSelect={onSelectOptionHandler}
+          value={searchValue}
+          icon={<MapPinIcon />}
+          onClear={onClearInputHanlder}
+          autocomplete
+          optionIcon={<MapPinIcon />}
+          suggestions={suggestions}
+        />
+        <Dropdown value={'Deliver Now'} icon={<ClockIcon />} classes="mt-4">
+          <Option value="Deliver Now" onClick={() => {}} label="Deliver Now" optionIcon={<ClockIcon />} />
+          <Option
+            value="Schedule for later"
+            onClick={() => {}}
+            label="Schedule for later"
+            optionIcon={<CalendarIcon />}
+          />
+        </Dropdown>
+        <PrimaryButton width="max-content" height="56px">
+          Find Food
+        </PrimaryButton>
+      </SearchContainer>
+    </StyledSection>
+  )
 }
 
-export default SearchSection;
+export default SearchSection

@@ -41,7 +41,9 @@ const GlobalSidebar = () => {
     <Sidebar onClose={toggleSidebarHandler} show={showSidebar}>
       <MenuItemContainer>
         <MenuItem>
-          <PrimaryButton height="56px">Sign in</PrimaryButton>
+          <PrimaryButton width="100%" height="56px">
+            Sign in
+          </PrimaryButton>
         </MenuItem>
         <MenuItemContainer style={{marginTop: '24px'}}>
           <MenuItem>Create a business account</MenuItem>

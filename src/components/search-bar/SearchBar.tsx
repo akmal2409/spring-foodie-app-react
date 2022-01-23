@@ -14,6 +14,7 @@ const SearchBarContainer = styled.div<ContainerStyleProps>`
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  flex: 1;
 
   & .search-bar_icon {
     position: absolute;
@@ -31,7 +32,7 @@ const SearchBarContainer = styled.div<ContainerStyleProps>`
   }
 
   @media (min-width: 768px) {
-    min-width: ${props => props.minWidth || '500px'};
+    min-width: ${props => props.minWidth || '545px'};
   }
 `
 
@@ -69,17 +70,19 @@ const SearchBar = (props: Props) => {
 
   const inputFocusHandler = () => {
     setClasses('border-bottom')
+    if (props.suggestions && props.suggestions.length > 0) {
+      setShowAutocomplete(true)
+    }
   }
 
   const inputBlurHandler = () => {
-    setShowAutocomplete(false)
     setClasses('')
   }
 
   const onOptionClickHandler = (value: any) => {
     if (props.onSelect) {
-      setShowAutocomplete(false)
       props.onSelect(value)
+      setShowAutocomplete(false)
     }
   }
 
@@ -93,7 +96,6 @@ const SearchBar = (props: Props) => {
         onFocus={inputFocusHandler}
         onBlur={inputBlurHandler}
         onChange={event => props.onChange(event.target.value)}
-        value={props.value}
         placeholder={props.placeholder || ''}
       />
       {props.autocomplete && props.suggestions && showAutcomplete && (
@@ -113,10 +115,10 @@ type Props = {
   onChange: (value: string) => void
   onSelect?: (value: any) => void
   onClear: () => void
-  value: string
   background?: string
   minWidth?: string
   maxWidth?: string
+  value: string
 }
 
 export default SearchBar

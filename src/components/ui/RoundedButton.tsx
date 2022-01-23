@@ -29,16 +29,22 @@ const RoundedButton = styled.button<StyleProps>`
   cursor: pointer;
 
   @media (min-width: 768px) {
-    font-size: 1.2rem;
-    min-height: 56px;
-    padding: 12px 16px;
+    font-size: ${props => props.fontSize || '16px'};
+    min-height: ${props => props.minHeight || '48px'};
+    padding: 12px 12px;
     font-weight: 500;
-    min-width: 90px;
+    height: ${props => props.height || 'auto'};
+    width: ${props => props.width || 'auto'};
   }
 `
 
 type StyleProps = {
   background?: BackgroundType
+  minWidth?: string
+  minHeight?: string
+  height?: string
+  width?: string
+  fontSize?: string
 }
 
 type BackgroundType = 'primary' | 'secondary' | 'dark'

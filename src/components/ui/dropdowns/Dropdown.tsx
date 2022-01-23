@@ -1,9 +1,8 @@
-import { ReactNode, useRef, useState } from 'react';
-import styled from 'styled-components';
-import { useClickOutside } from '../../../hooks/useClickOutside';
-import Spacer from '../Spacer';
-import { ChevronDown } from '../svg/ChevronDown';
-
+import {ReactNode, useRef, useState} from 'react'
+import styled from 'styled-components'
+import {useClickOutside} from '../../../hooks/useClickOutside'
+import Spacer from '../Spacer'
+import {ChevronDown} from '../svg/ChevronDown'
 
 export const DropdownContainer = styled.div<StylePropsContainer>`
   position: relative;
@@ -16,8 +15,10 @@ export const DropdownContainer = styled.div<StylePropsContainer>`
   cursor: pointer;
   width: 100%;
 
-  ${props => props.flexGrow ? `flex-grow: ${props.flexGrow};` : ''}
-`;
+  @media (min-width: 768px) {
+    width: max-content;
+  }
+`
 
 const OptionContainer = styled.ul`
   margin: 0;
@@ -27,7 +28,7 @@ const OptionContainer = styled.ul`
   background: var(--theme-background-primary);
   top: 100%;
   left: 0;
-`;
+`
 
 const IconContainer = styled.div`
   width: 48px;
@@ -35,61 +36,58 @@ const IconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const SelectedOption = styled.div`
   font-weight: 500;
   line-height: 20px;
   flex-grow: 1;
-`;
+`
 
-export const Option = styled.div`
-
-
-`;
+export const Option = styled.div``
 
 const Dropdown = (props: Props) => {
-  const containerRef = useRef(null);
-  const [showOptions, setShowOptions] = useState(false);
-  useClickOutside(containerRef, () => setShowOptions(false));
+  const containerRef = useRef(null)
+  const [showOptions, setShowOptions] = useState(false)
+  useClickOutside(containerRef, () => setShowOptions(false))
 
   const toggle = () => {
-    setShowOptions(prev => !prev);
+    setShowOptions(prev => !prev)
   }
 
-  return <DropdownContainer
-    className={props.classes}
-    onClick={toggle}
-    flexGrow={props.flexGrow}
-    ref={containerRef}
-    height={props.height}
-    background={props.background}>
-    <Spacer spacer='4' />
-    {props.icon && <IconContainer>{props.icon}</IconContainer>}
-    <SelectedOption>{props.value}</SelectedOption>
-    <IconContainer><ChevronDown /></IconContainer>
-    {showOptions && <OptionContainer>{props.children}</OptionContainer>}
-  </DropdownContainer>;
+  return (
+    <DropdownContainer
+      className={props.classes}
+      onClick={toggle}
+      ref={containerRef}
+      height={props.height}
+      background={props.background}
+    >
+      <Spacer spacer="4" />
+      {props.icon && <IconContainer>{props.icon}</IconContainer>}
+      <SelectedOption>{props.value}</SelectedOption>
+      <IconContainer>
+        <ChevronDown />
+      </IconContainer>
+      {showOptions && <OptionContainer>{props.children}</OptionContainer>}
+    </DropdownContainer>
+  )
 }
-
-
 
 type Props = {
-  children?: ReactNode | ReactNode[];
-  height?: string;
-  background?: string;
-  icon?: ReactNode;
-  value?: any;
-  classes?: string;
-  minWidth?: string;
-  maxWidth?: string;
-  flexGrow?: number;
-};
-
-type StylePropsContainer = {
-  height?: string;
-  background?: string;
-  flexGrow?: number;
+  children?: ReactNode | ReactNode[]
+  height?: string
+  background?: string
+  icon?: ReactNode
+  value?: any
+  classes?: string
+  minWidth?: string
+  maxWidth?: string
 }
 
-export default Dropdown;
+type StylePropsContainer = {
+  height?: string
+  background?: string
+}
+
+export default Dropdown

@@ -15,6 +15,7 @@
 
   --theme-backdrop-zIndex: 11;
   --theme-sidebar-zIndex: 12;
+  --theme-modal-zIndex: 13;
 }
 
 html.dark {
