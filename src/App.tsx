@@ -13,7 +13,7 @@ const App = () => {
       <Container id="wrapper" style={{padding: '46px'}}>
         <Routes>
           <Route path="/" element={<LandingLayout />} />
-          <Route path="/feed" element={<Layout />} />
+          <Route path="/feed/*" element={<Layout />} />
         </Routes>
       </Container>
       <GlobalSidebar />

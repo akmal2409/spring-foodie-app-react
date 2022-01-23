@@ -1,5 +1,5 @@
+import { Category } from './../model/Category';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { env } from '../environment/env';
 import { PlaceSearchResults } from '../model/PlaceSearchResults';
 
 export const apiSlice = createApi({
@@ -8,9 +8,12 @@ export const apiSlice = createApi({
     endpoints: (builder) => ({
         getPlacesSuggestion: builder.query<PlaceSearchResults, string>({
             query: (query) => `locations/search?query=${encodeURIComponent(query)}&limit=10`,
+        }),
+        getCategories: builder.query<Category[], void>({
+            query: () => `categories`
         })
     })
 });
 
 
-export const { useGetPlacesSuggestionQuery } = apiSlice;
+export const { useGetPlacesSuggestionQuery, useGetCategoriesQuery } = apiSlice;

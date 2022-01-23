@@ -7,9 +7,9 @@ const Layout = () => {
   return (
     <>
       <Header />
-      <Container>
+      <Container style={{marginTop: '60px'}}>
         <Routes>
-          <Route path="/feed" element={<Feed />} />
+          <Route path="/" element={<Feed />} />
           {/* <Route path="/feed/restaurant/:restaurantId" element={<Layout />} /> */}
         </Routes>
       </Container>
