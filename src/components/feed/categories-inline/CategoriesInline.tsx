@@ -10,6 +10,7 @@ const InlineCategoryContainer = styled.ul`
   gap: 10px;
   padding: 0;
   margin: 0;
+  overflow-x: auto;
 `
 
 const CategoriesInline = ({categories}: {categories: Category[]}) => {

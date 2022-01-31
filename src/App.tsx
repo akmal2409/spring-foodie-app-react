@@ -1,5 +1,4 @@
 import {Route, Routes} from 'react-router-dom'
-import Feed from './components/feed/Feed'
 import GlobalSidebar from './components/global/GlobalSidebar'
 import Container from './components/layout/Container'
 import LandingLayout from './components/layout/LandingLayout'
@@ -10,7 +9,7 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      <Container id="wrapper" style={{padding: '46px'}}>
+      <Container id="wrapper">
         <Routes>
           <Route path="/" element={<LandingLayout />} />
           <Route path="/feed/*" element={<Layout />} />

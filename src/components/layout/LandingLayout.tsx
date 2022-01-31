@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react'
+import {Navigate, useNavigate} from 'react-router-dom'
 import styled from 'styled-components'
 import useDebounce from '../../hooks/useDebounce'
 import LandingHero from '../landing/LandingHero'
@@ -23,6 +24,7 @@ const LandingLayout = () => {
   const [scrolled, setScrolled] = useState(false)
   const [mobile, setMobile] = useState(false)
   const debounce = useDebounce()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const onScroll = (event: Event) => {
@@ -42,6 +44,10 @@ const LandingLayout = () => {
       window.removeEventListener('resize', onResize)
     }
   }, [])
+
+  if (localStorage.getItem('deliveryAddress') != null) {
+    return <Navigate to={`/feed`} replace />
+  }
 
   return (
     <>

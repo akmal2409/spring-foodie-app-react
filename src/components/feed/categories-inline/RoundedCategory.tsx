@@ -4,6 +4,7 @@ import styled from 'styled-components'
 const StyledRoundedCategory = styled.li`
   display: block;
   cursor: pointer;
+  max-width: fit-content;
 
   & .link {
     max-width: fit-content;
