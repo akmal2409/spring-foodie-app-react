@@ -13,3 +13,7 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById('root')
 )
+
+store.subscribe(() => {
+  localStorage.setItem('state', JSON.stringify(store.getState()))
+})

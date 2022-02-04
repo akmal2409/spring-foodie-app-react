@@ -1,9 +1,11 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect, useState} from 'react'
+import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import styled from 'styled-components'
 import useDebounce from '../../hooks/useDebounce'
 import {useGetPlacesSuggestionQuery} from '../../services/api.slice'
+import {persistAddress} from '../../store/slices/ui.slice'
 import {SearchSuggestion} from '../search-bar/Autocomplete'
 import Option from '../search-bar/Option'
 import SearchBar from '../search-bar/SearchBar'
@@ -67,6 +69,7 @@ const SearchSection = () => {
   const [suggestions, setSuggestions] = useState<SearchSuggestion[]>([])
   const debounce = useDebounce()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const {
     data: autocompleteData,
@@ -91,7 +94,7 @@ const SearchSection = () => {
   }
 
   const onSelectOptionHandler = (value: any) => {
-    localStorage.setItem('deliveryAddress', JSON.stringify(value))
+    dispatch(persistAddress(value))
     navigate(`/feed`)
   }
 
