@@ -1,21 +1,16 @@
 import { PlaceSearchAddress } from './../../model/PlaceSearchResults';
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface UIState {
     showSidebar: boolean;
-    deliveryAddress: any | undefined;
+    deliveryAddress: PlaceSearchAddress | undefined;
 };
 
-const initialState: UIState = {
+export const initialState: UIState = {
     showSidebar: false,
     deliveryAddress: undefined
 };
 
-export const persistAddress = createAsyncThunk('localstorage/address',
-    async (address: any) => {
-        localStorage.setItem('deliveryAddress', JSON.stringify(address));
-        return address;
-    });
 
 const uiSlice = createSlice({
     name: 'ui',
@@ -23,16 +18,14 @@ const uiSlice = createSlice({
     reducers: {
         toggleSidebar: (state) => {
             state.showSidebar = !state.showSidebar;
-        }
-    },
-    extraReducers: (builder) => {
-        builder.addCase(persistAddress.fulfilled, (state, action) => {
+        },
+        saveDeliveryAddress: (state, action: PayloadAction<PlaceSearchAddress>) => {
             state.deliveryAddress = action.payload;
-        })
+        }
     }
 });
 
-export const { toggleSidebar } = uiSlice.actions;
+export const { toggleSidebar, saveDeliveryAddress } = uiSlice.actions;
 
 
 export default uiSlice;

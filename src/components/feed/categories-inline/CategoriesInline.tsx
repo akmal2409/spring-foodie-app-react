@@ -17,7 +17,7 @@ const CategoriesInline = ({categories}: {categories: Category[]}) => {
   return (
     <InlineCategoryContainer>
       {categories.map(category => (
-        <RoundedCategory key={category.id} name={category.name} imageUrl={category.icon.url} />
+        <RoundedCategory key={category.id} name={category.name} imageUrl={category?.icon?.url} />
       ))}
     </InlineCategoryContainer>
   )

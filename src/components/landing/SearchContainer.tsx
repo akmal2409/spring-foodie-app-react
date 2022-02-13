@@ -4,8 +4,9 @@ import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import styled from 'styled-components'
 import useDebounce from '../../hooks/useDebounce'
+import {PlaceSearchAddress} from '../../model/PlaceSearchResults'
 import {useGetPlacesSuggestionQuery} from '../../services/api.slice'
-import {persistAddress} from '../../store/slices/ui.slice'
+import {saveDeliveryAddress} from '../../store/slices/ui.slice'
 import {SearchSuggestion} from '../search-bar/Autocomplete'
 import Option from '../search-bar/Option'
 import SearchBar from '../search-bar/SearchBar'
@@ -93,9 +94,11 @@ const SearchSection = () => {
     debounce(() => setSearchValue(value), 3000)
   }
 
-  const onSelectOptionHandler = (value: any) => {
-    dispatch(persistAddress(value))
-    navigate(`/feed`)
+  const onSelectOptionHandler = (value: {address: PlaceSearchAddress}) => {
+    if (value) {
+      dispatch(saveDeliveryAddress(value.address))
+      navigate(`/feed`)
+    }
   }
 
   const onClearInputHanlder = () => {

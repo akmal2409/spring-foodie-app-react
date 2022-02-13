@@ -1,9 +1,10 @@
-import {useEffect, useState} from 'react'
-import {useDispatch} from 'react-redux'
+import {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 import {PlaceSearchAddress} from '../../../model/PlaceSearchResults'
 import {toggleSidebar} from '../../../store/slices/ui.slice'
+import {RootState} from '../../../store/store'
 import SearchBar from '../../search-bar/SearchBar'
 import {RoundedPrimaryButton} from '../../ui/buttons/SolidButton'
 import RoundedButton from '../../ui/RoundedButton'
@@ -34,13 +35,7 @@ const SearchBarContainer = styled.div`
 
 const Header = () => {
   const dispatch = useDispatch()
-  const [city, setCity] = useState('')
-
-  useEffect(() => {
-    const address: PlaceSearchAddress = JSON.parse(localStorage.getItem('deliveryAddress') || '')?.address
-    console.log(address)
-    setCity(address.localName)
-  }, [])
+  const city = useSelector((state: RootState) => state.ui.deliveryAddress?.localName)
 
   const toggleSidebarHandler = () => {
     dispatch(toggleSidebar())

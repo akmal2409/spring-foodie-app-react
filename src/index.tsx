@@ -15,5 +15,5 @@ ReactDOM.render(
 )
 
 store.subscribe(() => {
-  // localStorage.setItem('state', JSON.stringify(store.getState()))
+  localStorage.setItem('uiState', JSON.stringify(store.getState().ui))
 })

@@ -1,10 +1,10 @@
-import { apiSlice } from './../services/api.slice';
 import { configureStore } from "@reduxjs/toolkit";
-import uiSlice, { UIState } from "./slices/ui.slice";
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
+import { apiSlice } from './../services/api.slice';
+import uiSlice, { initialState as uiInitialState, UIState } from "./slices/ui.slice";
 
-const persistedState = localStorage.getItem('state') ?
-    JSON.parse((localStorage.getItem('state') as any)) : {}
+const uiState = localStorage.getItem('uiState') ?
+    JSON.parse((localStorage.getItem('uiState') as any)) : uiInitialState
 
 const store = configureStore({
     reducer: {
@@ -15,7 +15,9 @@ const store = configureStore({
         getDefaultMiddleware({
             serializableCheck: false
         }).concat(apiSlice.middleware),
-    preloadedState: persistedState
+    preloadedState: {
+        ui: uiState
+    }
 })
 
 export interface RootState {

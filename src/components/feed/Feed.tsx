@@ -1,5 +1,7 @@
+import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
+import {Navigate, useNavigate} from 'react-router-dom'
 import styled from 'styled-components'
 import {PlaceSearchAddress} from '../../model/PlaceSearchResults'
 import {Restaurant} from '../../model/Restaurant'
@@ -26,23 +28,22 @@ const Feed = () => {
   const [restaurants, setRestaurants] = useState<Array<Restaurant>>([])
 
   const {data: categories} = useGetCategoriesQuery()
-  const address = useSelector((state: RootState) => state.ui.deliveryAddress.address as PlaceSearchAddress)
+  const address = useSelector((state: RootState) => state.ui?.deliveryAddress)
+
   const {
     data: restaurantsPage,
     isLoading,
     error
-  } = useGetRestaurantsQuery({
-    page,
-    size,
-    country: address.countryCode,
-    city: address.localName
-  })
-
-  const onShowMore = () => {
-    setPage(prev => prev + 1)
-  }
-
-  const contentReady = !isLoading && !error && restaurantsPage != null
+  } = useGetRestaurantsQuery(
+    address
+      ? {
+          page,
+          size,
+          country: address.countryCode,
+          city: address.localName
+        }
+      : skipToken
+  )
 
   useEffect(() => {
     if (restaurantsPage) {
@@ -51,6 +52,16 @@ const Feed = () => {
       setRestaurants(prev => [...prev, ...restaurantsPage?.content])
     }
   }, [restaurantsPage])
+
+  if (!address) {
+    return <Navigate to={`/`} replace />
+  }
+
+  const onShowMore = () => {
+    setPage(prev => prev + 1)
+  }
+
+  const contentReady = !isLoading && !error && restaurantsPage != null
 
   return (
     <>
